@@ -1,0 +1,806 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Learn with Ms. Thúy</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;800;900&family=Caveat:wght@700&display=swap" rel="stylesheet"/>
+<style>
+/* ══════════════════════════════════════════════
+   RESET & VARIABLES
+══════════════════════════════════════════════ */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --sky:     #a8d8f0;
+  --lavender:#c9b8f5;
+  --rose:    #f5b8d0;
+  --mint:    #b8f0e0;
+  --peach:   #f5d5b8;
+  --cream:   #fdf6f0;
+
+  --bg-from: #e8f4fd;
+  --bg-to:   #f5e8fa;
+
+  --glass-bg:     rgba(255,255,255,0.58);
+  --glass-border: rgba(255,255,255,0.85);
+  --glass-shadow: 0 8px 32px rgba(150,120,200,0.13);
+
+  --text-dark:  #2d2640;
+  --text-mid:   #6b5f8a;
+  --text-light: #a898c8;
+
+  --sidebar-w: 268px;
+  --header-h:  62px;
+
+  --correct-bg:  rgba(100,220,150,0.18);
+  --correct-brd: #4caf82;
+  --wrong-bg:    rgba(255,100,100,0.14);
+  --wrong-brd:   #e05c5c;
+
+  --accent-grad: linear-gradient(135deg, var(--sky), var(--lavender), var(--rose));
+  --btn-grad:    linear-gradient(135deg, #8ec5fc 0%, #c9b8f5 50%, #f5b8d0 100%);
+}
+
+html, body {
+  height: 100%; overflow: hidden;
+  font-family: 'Nunito', sans-serif;
+  color: var(--text-dark);
+  background: linear-gradient(135deg, var(--bg-from) 0%, var(--bg-to) 100%);
+}
+
+/* Animated background blobs */
+body::before, body::after {
+  content: ''; position: fixed; border-radius: 50%;
+  filter: blur(80px); pointer-events: none; z-index: 0; opacity: 0.5;
+}
+body::before {
+  width: 600px; height: 600px; top: -200px; left: -150px;
+  background: radial-gradient(circle, #c9b8f5 0%, transparent 70%);
+  animation: blobFloat 12s ease-in-out infinite alternate;
+}
+body::after {
+  width: 500px; height: 500px; bottom: -150px; right: -100px;
+  background: radial-gradient(circle, #f5b8d0 0%, transparent 70%);
+  animation: blobFloat 9s ease-in-out infinite alternate-reverse;
+}
+@keyframes blobFloat {
+  0%   { transform: translate(0,0) scale(1); }
+  100% { transform: translate(40px, 30px) scale(1.1); }
+}
+
+/* ══════════════════════════════════════════════
+   LAYOUT SHELL
+══════════════════════════════════════════════ */
+#app {
+  position: relative; z-index: 1;
+  display: flex; flex-direction: column;
+  height: 100vh; overflow: hidden;
+}
+
+/* ══════════════════════════════════════════════
+   HEADER
+══════════════════════════════════════════════ */
+header {
+  height: var(--header-h); flex-shrink: 0;
+  display: flex; align-items: center; gap: 14px;
+  padding: 0 22px;
+  background: var(--glass-bg);
+  backdrop-filter: blur(20px);
+  border-bottom: 1.5px solid var(--glass-border);
+  box-shadow: 0 2px 20px rgba(150,120,200,0.1);
+}
+
+#sidebar-toggle {
+  width: 36px; height: 36px; border-radius: 10px; flex-shrink: 0;
+  border: 1.5px solid rgba(160,130,220,0.25);
+  background: rgba(255,255,255,0.6);
+  cursor: pointer; display: flex; align-items: center; justify-content: center;
+  font-size: 16px; transition: all 0.2s;
+  box-shadow: 0 2px 8px rgba(150,120,200,0.1);
+}
+#sidebar-toggle:hover {
+  background: rgba(200,180,255,0.3);
+  border-color: var(--lavender);
+  transform: scale(1.07);
+}
+
+.header-logo {
+  font-family: 'Caveat', cursive;
+  font-size: 26px; font-weight: 700;
+  background: linear-gradient(135deg, #7bb8e8 0%, #a87dd6 45%, #e07ab0 100%);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  letter-spacing: 0.5px;
+}
+.header-logo span { opacity: 0.7; }
+
+#header-unit {
+  margin-left: auto;
+  font-size: 12.5px; font-weight: 600;
+  color: var(--text-mid);
+  background: rgba(200,180,255,0.2);
+  border: 1px solid rgba(180,150,240,0.3);
+  padding: 5px 14px; border-radius: 20px;
+  max-width: 280px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+
+/* ══════════════════════════════════════════════
+   BODY ROW (sidebar + workspace)
+══════════════════════════════════════════════ */
+#body-row {
+  flex: 1; display: flex; overflow: hidden;
+}
+
+/* ══════════════════════════════════════════════
+   SIDEBAR
+══════════════════════════════════════════════ */
+#sidebar {
+  width: var(--sidebar-w); flex-shrink: 0;
+  display: flex; flex-direction: column;
+  background: rgba(255,255,255,0.52);
+  backdrop-filter: blur(24px);
+  border-right: 1.5px solid var(--glass-border);
+  overflow: hidden;
+  transition: width 0.36s cubic-bezier(.4,0,.2,1),
+              opacity 0.3s,
+              transform 0.36s cubic-bezier(.4,0,.2,1);
+}
+#sidebar.closed {
+  width: 0; opacity: 0; transform: translateX(-20px);
+}
+
+.sb-title {
+  padding: 18px 20px 10px;
+  font-size: 10px; letter-spacing: 3px; text-transform: uppercase;
+  color: var(--text-light); font-weight: 700;
+  border-bottom: 1px solid rgba(200,180,240,0.25);
+}
+
+#unit-list {
+  flex: 1; overflow-y: auto; padding: 10px 10px 20px;
+}
+#unit-list::-webkit-scrollbar { width: 4px; }
+#unit-list::-webkit-scrollbar-thumb { background: rgba(180,150,240,0.35); border-radius: 2px; }
+
+.unit-btn {
+  width: 100%; text-align: left;
+  padding: 11px 14px; border-radius: 12px;
+  border: 1.5px solid transparent;
+  background: none; cursor: pointer;
+  font-family: 'Nunito', sans-serif;
+  font-size: 13px; font-weight: 600;
+  color: var(--text-mid);
+  display: flex; align-items: center; gap: 10px;
+  margin-bottom: 4px;
+  transition: all 0.2s;
+}
+.unit-btn:hover {
+  background: rgba(200,180,255,0.2);
+  color: var(--text-dark);
+}
+.unit-btn.active {
+  background: rgba(200,180,255,0.28);
+  border-color: rgba(180,150,240,0.45);
+  color: var(--text-dark);
+  box-shadow: 0 2px 12px rgba(150,120,200,0.12);
+}
+.unit-pill {
+  width: 24px; height: 24px; flex-shrink: 0;
+  border-radius: 8px; font-size: 11px; font-weight: 800;
+  display: flex; align-items: center; justify-content: center;
+  background: var(--btn-grad); color: #fff;
+  box-shadow: 0 2px 6px rgba(150,100,200,0.25);
+}
+
+/* ══════════════════════════════════════════════
+   WORKSPACE (two-col with splitter)
+══════════════════════════════════════════════ */
+#workspace {
+  flex: 1; display: flex; overflow: hidden; position: relative;
+}
+
+/* Left column – video */
+#col-video {
+  display: flex; flex-direction: column;
+  min-width: 280px; overflow: hidden;
+  padding: 18px 0 18px 18px;
+}
+
+.panel-card {
+  background: var(--glass-bg);
+  backdrop-filter: blur(20px);
+  border: 1.5px solid var(--glass-border);
+  border-radius: 18px;
+  box-shadow: var(--glass-shadow);
+  overflow: hidden;
+  flex: 1; display: flex; flex-direction: column;
+}
+
+.panel-header {
+  padding: 13px 18px;
+  font-size: 12px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase;
+  color: var(--text-mid);
+  border-bottom: 1px solid rgba(200,180,240,0.3);
+  display: flex; align-items: center; gap: 8px;
+}
+.panel-dot {
+  width: 8px; height: 8px; border-radius: 50%;
+}
+.panel-dot.sky    { background: var(--sky); }
+.panel-dot.rose   { background: var(--rose); }
+.panel-dot.mint   { background: var(--mint); }
+
+.video-wrapper {
+  flex: 1; position: relative; background: #1a1530;
+  display: flex; align-items: center; justify-content: center;
+}
+#video-frame {
+  width: 100%; height: 100%; border: none;
+}
+
+.video-placeholder {
+  display: flex; flex-direction: column; align-items: center; gap: 12px;
+  color: rgba(255,255,255,0.3); font-size: 14px; font-weight: 600;
+}
+.video-placeholder .icon { font-size: 48px; opacity: 0.5; }
+
+/* ══════════════════════════════════════════════
+   SPLITTER
+══════════════════════════════════════════════ */
+#splitter {
+  width: 10px; flex-shrink: 0; cursor: col-resize;
+  display: flex; align-items: center; justify-content: center;
+  position: relative; z-index: 10;
+  transition: background 0.2s;
+}
+#splitter:hover, #splitter.dragging {
+  background: rgba(180,150,240,0.15);
+}
+#splitter::before {
+  content: '';
+  width: 4px; height: 48px; border-radius: 2px;
+  background: linear-gradient(180deg, var(--sky), var(--lavender), var(--rose));
+  opacity: 0.6;
+  transition: opacity 0.2s, height 0.2s;
+}
+#splitter:hover::before, #splitter.dragging::before {
+  opacity: 1; height: 80px;
+}
+
+/* ══════════════════════════════════════════════
+   Right column – transcript
+══════════════════════════════════════════════ */
+#col-transcript {
+  display: flex; flex-direction: column;
+  min-width: 300px; overflow: hidden;
+  padding: 18px 18px 18px 0;
+  flex: 1;
+}
+
+.transcript-scroll {
+  flex: 1; overflow-y: auto; padding: 16px 18px;
+}
+.transcript-scroll::-webkit-scrollbar { width: 5px; }
+.transcript-scroll::-webkit-scrollbar-thumb {
+  background: rgba(180,150,240,0.3); border-radius: 3px;
+}
+
+/* Transcript lines */
+.t-line {
+  padding: 10px 14px;
+  border-radius: 12px;
+  font-size: 15px; line-height: 2.2;
+  margin-bottom: 6px;
+  border: 1.5px solid transparent;
+  transition: background 0.3s, border-color 0.3s, box-shadow 0.3s;
+  color: var(--text-mid);
+}
+.t-line.active {
+  background: rgba(200,180,255,0.22);
+  border-color: rgba(180,150,240,0.4);
+  color: var(--text-dark);
+  box-shadow: 0 2px 16px rgba(150,120,200,0.12);
+}
+
+/* Blank inputs */
+.blank-wrap {
+  display: inline-flex; align-items: center; gap: 3px;
+  vertical-align: middle; margin: 0 2px;
+}
+.blank-idx {
+  font-size: 9px; font-weight: 800;
+  background: linear-gradient(135deg, var(--sky), var(--lavender));
+  color: #fff; border-radius: 4px;
+  padding: 1px 4px; line-height: 1.5;
+  box-shadow: 0 1px 4px rgba(100,140,220,0.25);
+}
+.blank-input {
+  border: none; outline: none;
+  border-bottom: 2px solid rgba(180,150,240,0.5);
+  background: rgba(230,220,255,0.25);
+  border-radius: 6px 6px 0 0;
+  font-family: 'Nunito', sans-serif;
+  font-size: 14px; font-weight: 700;
+  color: var(--text-dark);
+  padding: 2px 8px; text-align: center;
+  transition: border-color 0.2s, background 0.2s;
+  min-width: 70px;
+}
+.blank-input:focus {
+  border-color: var(--lavender);
+  background: rgba(200,180,255,0.3);
+}
+.blank-input.correct {
+  border-color: var(--correct-brd);
+  background: var(--correct-bg);
+  color: #2e7d4f;
+}
+.blank-input.wrong {
+  border-color: var(--wrong-brd);
+  background: var(--wrong-bg);
+  color: #c0392b;
+}
+.ans-hint {
+  font-size: 12px; font-weight: 700;
+  color: var(--wrong-brd);
+  background: rgba(255,100,100,0.1);
+  padding: 1px 7px; border-radius: 5px;
+  white-space: nowrap; display: inline-block;
+}
+
+/* ══════════════════════════════════════════════
+   ACTION BAR
+══════════════════════════════════════════════ */
+.action-bar {
+  padding: 14px 18px 16px;
+  border-top: 1px solid rgba(200,180,240,0.3);
+  display: flex; align-items: center; gap: 10px; flex-wrap: wrap;
+}
+
+.btn-check {
+  padding: 10px 26px; border: none; border-radius: 50px;
+  cursor: pointer; font-family: 'Nunito', sans-serif;
+  font-size: 13.5px; font-weight: 800;
+  background: var(--btn-grad);
+  color: #fff;
+  box-shadow: 0 4px 18px rgba(150,120,200,0.3);
+  letter-spacing: 0.3px;
+  transition: all 0.2s;
+}
+.btn-check:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 26px rgba(150,120,200,0.4);
+}
+.btn-reset {
+  padding: 10px 20px; border-radius: 50px;
+  border: 1.5px solid rgba(180,150,240,0.35);
+  background: rgba(255,255,255,0.5); cursor: pointer;
+  font-family: 'Nunito', sans-serif; font-size: 13.5px; font-weight: 700;
+  color: var(--text-mid);
+  transition: all 0.2s;
+}
+.btn-reset:hover {
+  background: rgba(200,180,255,0.25);
+  border-color: var(--lavender);
+  color: var(--text-dark);
+}
+
+.score-pill {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 8px 18px; border-radius: 50px;
+  background: rgba(200,180,255,0.2);
+  border: 1.5px solid rgba(180,150,240,0.3);
+  font-size: 13px; font-weight: 800; color: var(--text-mid);
+  animation: popIn 0.35s cubic-bezier(.3,1.4,.5,1);
+}
+@keyframes popIn {
+  from { opacity: 0; transform: scale(0.8); }
+  to   { opacity: 1; transform: scale(1); }
+}
+
+/* ══════════════════════════════════════════════
+   LOADING
+══════════════════════════════════════════════ */
+#loading {
+  position: fixed; inset: 0; z-index: 999;
+  background: linear-gradient(135deg, var(--bg-from), var(--bg-to));
+  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 18px;
+  transition: opacity 0.5s;
+}
+#loading.hidden { opacity: 0; pointer-events: none; }
+
+.load-logo {
+  font-family: 'Caveat', cursive; font-size: 36px; font-weight: 700;
+  background: linear-gradient(135deg, #7bb8e8, #a87dd6, #e07ab0);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+}
+.load-bar {
+  width: 180px; height: 4px; border-radius: 2px;
+  background: rgba(180,150,240,0.2); overflow: hidden;
+}
+.load-bar-fill {
+  height: 100%; border-radius: 2px;
+  background: var(--btn-grad);
+  animation: loadSlide 1.2s ease-in-out infinite;
+}
+@keyframes loadSlide {
+  0%   { width: 0%; margin-left: 0; }
+  50%  { width: 70%; }
+  100% { width: 0%; margin-left: 100%; }
+}
+
+/* ══════════════════════════════════════════════
+   RESPONSIVE HELPERS
+══════════════════════════════════════════════ */
+@media (max-width: 700px) {
+  #workspace { flex-direction: column; }
+  #splitter { display: none; }
+  #col-video { padding: 10px 10px 0; min-height: 220px; }
+  #col-transcript { padding: 0 10px 10px; }
+}
+</style>
+</head>
+<body>
+
+<!-- LOADING SCREEN -->
+<div id="loading">
+  <div class="load-logo">Learn with Ms. Thúy 🌸</div>
+  <div class="load-bar"><div class="load-bar-fill"></div></div>
+</div>
+
+<!-- ── APP SHELL ── -->
+<div id="app">
+
+  <!-- HEADER -->
+  <header>
+    <button id="sidebar-toggle" onclick="toggleSidebar()" title="Menu">☰</button>
+    <div class="header-logo">Learn with Ms. Thúy <span>🌸</span></div>
+    <div id="header-unit">Choose a unit to begin</div>
+  </header>
+
+  <!-- BODY -->
+  <div id="body-row">
+
+    <!-- SIDEBAR -->
+    <nav id="sidebar">
+      <div class="sb-title">📚 Units</div>
+      <div id="unit-list"></div>
+    </nav>
+
+    <!-- WORKSPACE -->
+    <div id="workspace">
+
+      <!-- LEFT: VIDEO -->
+      <div id="col-video" style="width:50%">
+        <div class="panel-card">
+          <div class="panel-header">
+            <div class="panel-dot sky"></div>
+            Video Player
+          </div>
+          <div class="video-wrapper" id="video-wrapper">
+            <div class="video-placeholder" id="video-placeholder">
+              <div class="icon">🎬</div>
+              <div>Select a unit to load video</div>
+            </div>
+            <div id="yt-player-container" style="display:none;width:100%;height:100%;"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SPLITTER -->
+      <div id="splitter" title="Drag to resize"></div>
+
+      <!-- RIGHT: TRANSCRIPT -->
+      <div id="col-transcript">
+        <div class="panel-card">
+          <div class="panel-header">
+            <div class="panel-dot rose"></div>
+            Fill in the Blanks
+            <div class="panel-dot mint" style="margin-left:auto"></div>
+          </div>
+          <div class="transcript-scroll" id="transcript-scroll">
+            <div style="color:var(--text-light);font-size:14px;text-align:center;padding:40px 20px;font-style:italic;">
+              Choose a unit from the sidebar 👈
+            </div>
+          </div>
+          <div class="action-bar" id="action-bar">
+            <button class="btn-check" onclick="checkResults()">✅ Check Results</button>
+            <button class="btn-reset" onclick="resetBlanks()">↺ Reset</button>
+            <div id="score-area"></div>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /workspace -->
+  </div><!-- /body-row -->
+</div><!-- /app -->
+
+<!-- YouTube IFrame API -->
+<script src="https://www.youtube.com/iframe_api"></script>
+
+<script>
+// ═══════════════════════════════════════════════
+//  STATE
+// ═══════════════════════════════════════════════
+let units = [];
+let currentUnit = null;
+let ytPlayer = null;
+let ytReady = false;
+let syncInterval = null;
+let answers = [];
+let sidebarOpen = true;
+
+// ═══════════════════════════════════════════════
+//  INIT
+// ═══════════════════════════════════════════════
+async function init() {
+  try {
+    const res = await fetch('data.json');
+    const data = await res.json();
+    units = data.units;
+    renderSidebar();
+  } catch(e) {
+    console.error('Could not load data.json:', e);
+  }
+  setTimeout(() => document.getElementById('loading').classList.add('hidden'), 900);
+}
+
+// ═══════════════════════════════════════════════
+//  SIDEBAR
+// ═══════════════════════════════════════════════
+function renderSidebar() {
+  const list = document.getElementById('unit-list');
+  list.innerHTML = units.map((u,i) => `
+    <button class="unit-btn" id="ubtn-${u.id}" onclick="loadUnit(${i})">
+      <div class="unit-pill">${u.id}</div>
+      <span>${u.title}</span>
+    </button>`).join('');
+}
+
+function toggleSidebar() {
+  sidebarOpen = !sidebarOpen;
+  document.getElementById('sidebar').classList.toggle('closed', !sidebarOpen);
+}
+
+// ═══════════════════════════════════════════════
+//  LOAD UNIT
+// ═══════════════════════════════════════════════
+function loadUnit(idx) {
+  const u = units[idx];
+  currentUnit = u;
+
+  // Sidebar active state
+  document.querySelectorAll('.unit-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById(`ubtn-${u.id}`)?.classList.add('active');
+
+  // Header
+  document.getElementById('header-unit').textContent = u.title;
+
+  // Render transcript
+  renderTranscript(u.transcript);
+
+  // Load YouTube
+  loadYouTube(u.youtube_id);
+
+  // Clear score
+  document.getElementById('score-area').innerHTML = '';
+}
+
+// ═══════════════════════════════════════════════
+//  YOUTUBE
+// ═══════════════════════════════════════════════
+function onYouTubeIframeAPIReady() {
+  ytReady = true;
+  // If a unit was already selected before API ready, load it
+  if (currentUnit) loadYouTube(currentUnit.youtube_id);
+}
+
+function loadYouTube(videoId) {
+  if (!ytReady) return;
+
+  clearSyncInterval();
+
+  document.getElementById('video-placeholder').style.display = 'none';
+  const container = document.getElementById('yt-player-container');
+  container.style.display = 'block';
+  container.innerHTML = '<div id="yt-player"></div>';
+
+  if (ytPlayer) {
+    try { ytPlayer.destroy(); } catch(e) {}
+  }
+
+  ytPlayer = new YT.Player('yt-player', {
+    videoId: videoId,
+    width: '100%',
+    height: '100%',
+    playerVars: {
+      autoplay: 0,
+      rel: 0,
+      modestbranding: 1,
+      enablejsapi: 1
+    },
+    events: {
+      onReady: onPlayerReady,
+      onStateChange: onPlayerStateChange
+    }
+  });
+}
+
+function onPlayerReady(e) {
+  // Player is ready
+}
+
+function onPlayerStateChange(e) {
+  if (e.data === YT.PlayerState.PLAYING) {
+    startSyncInterval();
+  } else {
+    clearSyncInterval();
+    if (e.data === YT.PlayerState.PAUSED || e.data === YT.PlayerState.ENDED) {
+      syncTranscript(ytPlayer.getCurrentTime());
+    }
+  }
+}
+
+function startSyncInterval() {
+  clearSyncInterval();
+  syncInterval = setInterval(() => {
+    if (ytPlayer && ytPlayer.getCurrentTime) {
+      syncTranscript(ytPlayer.getCurrentTime());
+    }
+  }, 250);
+}
+
+function clearSyncInterval() {
+  if (syncInterval) { clearInterval(syncInterval); syncInterval = null; }
+}
+
+// ═══════════════════════════════════════════════
+//  TRANSCRIPT
+// ═══════════════════════════════════════════════
+function renderTranscript(lines) {
+  answers = [];
+  let blankCount = 0;
+  const scroll = document.getElementById('transcript-scroll');
+
+  const html = lines.map((line, li) => {
+    const lineHtml = line.text.replace(/\[(\w+)\]/g, (_, word) => {
+      blankCount++;
+      const n = blankCount;
+      const w = Math.max(72, word.length * 13);
+      answers.push({ num: n, word, lineIdx: li });
+      return `<span class="blank-wrap">
+        <span class="blank-idx">${n}</span>
+        <input class="blank-input" id="b${n}" data-word="${word}"
+               style="width:${w}px" autocomplete="off" spellcheck="false" placeholder="…"/>
+      </span>`;
+    });
+    return `<div class="t-line" id="tline-${li}" data-start="${line.start}" data-end="${line.end}">${lineHtml}</div>`;
+  }).join('');
+
+  scroll.innerHTML = html;
+}
+
+function syncTranscript(time) {
+  if (!currentUnit) return;
+  const lines = currentUnit.transcript;
+  lines.forEach((line, i) => {
+    const el = document.getElementById(`tline-${i}`);
+    if (!el) return;
+    if (time >= line.start && time < line.end) {
+      if (!el.classList.contains('active')) {
+        el.classList.add('active');
+        // Smooth scroll into view
+        el.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      }
+    } else {
+      el.classList.remove('active');
+    }
+  });
+}
+
+// ═══════════════════════════════════════════════
+//  CHECK & RESET
+// ═══════════════════════════════════════════════
+function checkResults() {
+  let correct = 0;
+  answers.forEach(({ num, word }) => {
+    const inp = document.getElementById(`b${num}`);
+    if (!inp) return;
+
+    // Remove old hint
+    const old = inp.parentNode.querySelector('.ans-hint');
+    if (old) old.remove();
+
+    const val = inp.value.trim().toLowerCase();
+    inp.disabled = false;
+
+    if (val === word.toLowerCase()) {
+      inp.className = 'blank-input correct';
+      correct++;
+    } else {
+      inp.className = 'blank-input wrong';
+      const hint = document.createElement('span');
+      hint.className = 'ans-hint';
+      hint.textContent = `(${word})`;
+      inp.parentNode.appendChild(hint);
+    }
+  });
+
+  const total = answers.length;
+  const pct = total ? Math.round(correct / total * 100) : 0;
+  const emoji = pct === 100 ? '🌟' : pct >= 70 ? '🎉' : pct >= 40 ? '📚' : '💪';
+  document.getElementById('score-area').innerHTML =
+    `<div class="score-pill">${emoji} ${correct}/${total} · ${pct}%</div>`;
+}
+
+function resetBlanks() {
+  answers.forEach(({ num }) => {
+    const inp = document.getElementById(`b${num}`);
+    if (!inp) return;
+    inp.value = '';
+    inp.className = 'blank-input';
+    const hint = inp.parentNode.querySelector('.ans-hint');
+    if (hint) hint.remove();
+  });
+  document.getElementById('score-area').innerHTML = '';
+}
+
+// ═══════════════════════════════════════════════
+//  RESIZABLE SPLITTER
+// ═══════════════════════════════════════════════
+(function() {
+  const splitter  = document.getElementById('splitter');
+  const colVideo  = document.getElementById('col-video');
+  const workspace = document.getElementById('workspace');
+  let dragging = false, startX = 0, startW = 0;
+
+  splitter.addEventListener('mousedown', e => {
+    dragging = true;
+    startX = e.clientX;
+    startW = colVideo.offsetWidth;
+    splitter.classList.add('dragging');
+    document.body.style.cursor = 'col-resize';
+    document.body.style.userSelect = 'none';
+  });
+
+  document.addEventListener('mousemove', e => {
+    if (!dragging) return;
+    const dx = e.clientX - startX;
+    const totalW = workspace.offsetWidth;
+    const newW = Math.max(280, Math.min(totalW - 300, startW + dx));
+    colVideo.style.width = newW + 'px';
+    colVideo.style.flex = 'none';
+  });
+
+  document.addEventListener('mouseup', () => {
+    if (!dragging) return;
+    dragging = false;
+    splitter.classList.remove('dragging');
+    document.body.style.cursor = '';
+    document.body.style.userSelect = '';
+  });
+
+  // Touch support
+  splitter.addEventListener('touchstart', e => {
+    dragging = true;
+    startX = e.touches[0].clientX;
+    startW = colVideo.offsetWidth;
+  }, { passive: true });
+  document.addEventListener('touchmove', e => {
+    if (!dragging) return;
+    const dx = e.touches[0].clientX - startX;
+    const totalW = workspace.offsetWidth;
+    const newW = Math.max(280, Math.min(totalW - 300, startW + dx));
+    colVideo.style.width = newW + 'px';
+    colVideo.style.flex = 'none';
+  }, { passive: true });
+  document.addEventListener('touchend', () => { dragging = false; });
+})();
+
+// ═══════════════════════════════════════════════
+//  BOOT
+// ═══════════════════════════════════════════════
+init();
+</script>
+</body>
+</html>
