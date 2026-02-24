@@ -1,0 +1,71 @@
+{
+  "units": [
+    {
+      "id": 1,
+      "title": "Unit 1 – Friends: The One Where…",
+      "youtube_id": "6xTNdoF5Xak",
+      "transcript": [
+        { "text": "Welcome to [English] class with Ms. Thúy.", "start": 0, "end": 4 },
+        { "text": "Today we will [practice] listening and [speaking].", "start": 4, "end": 9 },
+        { "text": "Pay [attention] to every word you [hear].", "start": 9, "end": 14 },
+        { "text": "Don't be [afraid] to make [mistakes].", "start": 14, "end": 19 },
+        { "text": "Learning a [language] takes time and [effort].", "start": 19, "end": 25 },
+        { "text": "You are doing [great] — keep it [up]!", "start": 25, "end": 31 }
+      ]
+    },
+    {
+      "id": 2,
+      "title": "Unit 2 – TED Talk: Power of Words",
+      "youtube_id": "arj7oStGLkU",
+      "transcript": [
+        { "text": "Words have the [power] to change the [world].", "start": 0, "end": 5 },
+        { "text": "When you [speak] clearly, people [listen].", "start": 5, "end": 11 },
+        { "text": "A great [speaker] uses [pause] and [tone].", "start": 11, "end": 18 },
+        { "text": "Body [language] also [matters] a lot.", "start": 18, "end": 24 },
+        { "text": "Stand [tall], make [eye] contact, and [smile].", "start": 24, "end": 31 },
+        { "text": "Your [confidence] will grow with [practice].", "start": 31, "end": 38 },
+        { "text": "Never [underestimate] the power of a kind [word].", "start": 38, "end": 46 }
+      ]
+    },
+    {
+      "id": 3,
+      "title": "Unit 3 – BBC: Daily Life in London",
+      "youtube_id": "dQw4w9WgXcQ",
+      "transcript": [
+        { "text": "London is one of the most [diverse] cities in the [world].", "start": 0, "end": 6 },
+        { "text": "Every day, [millions] of people use the famous [Underground].", "start": 6, "end": 13 },
+        { "text": "The city is full of [history], [culture], and [art].", "start": 13, "end": 20 },
+        { "text": "From the [Tower] of London to [Buckingham] Palace.", "start": 20, "end": 27 },
+        { "text": "British people are known for being [polite] and [reserved].", "start": 27, "end": 35 },
+        { "text": "They love [tea], [queuing], and talking about the [weather].", "start": 35, "end": 43 }
+      ]
+    },
+    {
+      "id": 4,
+      "title": "Unit 4 – Movie Scene: Job Interview",
+      "youtube_id": "Ks-_Mh1QhMc",
+      "transcript": [
+        { "text": "Thank you for coming in for this [interview] today.", "start": 0, "end": 5 },
+        { "text": "Please take a [seat] and make yourself [comfortable].", "start": 5, "end": 11 },
+        { "text": "Could you tell me a little about your [background]?", "start": 11, "end": 17 },
+        { "text": "I have five years of [experience] in [marketing].", "start": 17, "end": 23 },
+        { "text": "What would you say is your greatest [strength]?", "start": 23, "end": 29 },
+        { "text": "I am very [dedicated] and I [thrive] under [pressure].", "start": 29, "end": 37 },
+        { "text": "Do you have any [questions] for [us]?", "start": 37, "end": 43 }
+      ]
+    },
+    {
+      "id": 5,
+      "title": "Unit 5 – Nature Documentary",
+      "youtube_id": "LmzdC_YoMsI",
+      "transcript": [
+        { "text": "Our [planet] is home to an incredible [variety] of life.", "start": 0, "end": 6 },
+        { "text": "From the [depths] of the ocean to the highest [mountains].", "start": 6, "end": 13 },
+        { "text": "Every [creature] plays a vital [role] in the ecosystem.", "start": 13, "end": 20 },
+        { "text": "The [rainforest] produces twenty percent of the world's [oxygen].", "start": 20, "end": 28 },
+        { "text": "We must [protect] these [habitats] for future [generations].", "start": 28, "end": 36 },
+        { "text": "Small [actions] today can make a [significant] difference [tomorrow].", "start": 36, "end": 45 }
+      ]
+    }
+  ]
+}
