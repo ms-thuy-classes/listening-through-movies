@@ -2,17 +2,44 @@
   "units": [
     {
       "id": 1,
-      "title": "Unit 1 – Friends: The One Where…",
-      "youtube_id": "6xTNdoF5Xak",
+      "title": "Unit 1: What’s the smartest age? - Shannon Odell",
+      "youtube_id": "sbCvQbBi2G8",
       "transcript": [
-        { "text": "Welcome to [English] class with Ms. Thúy.", "start": 0, "end": 4 },
-        { "text": "Today we will [practice] listening and [speaking].", "start": 4, "end": 9 },
-        { "text": "Pay [attention] to every word you [hear].", "start": 9, "end": 14 },
-        { "text": "Don't be [afraid] to make [mistakes].", "start": 14, "end": 19 },
-        { "text": "Learning a [language] takes time and [effort].", "start": 19, "end": 25 },
-        { "text": "You are doing [great] — keep it [up]!", "start": 25, "end": 31 }
+        { "start": 7, "end": 13, "text": "What is the smartest age? Perhaps a day of friendly [competition] will lead us to the answer." },
+        { "start": 14, "end": 24, "text": "Tomorrow’s the annual Brain Clash—ten teams of two competing in a decathlon of mental [challenges], trivia competitions, and puzzles." },
+        { "start": 24, "end": 30, "text": "I’ve been training all year. I’ll need to pick the smartest, most [capable] teammate. I’ve narrowed down the [roster]." },
+        { "start": 33, "end": 40, "text": "First we have Gabriela. She may only be 8, but don’t [underestimate] her!" },
+        { "start": 41, "end": 48, "text": "She’s [fluent] in two languages and is the ultimate outside-the-box thinker. Then there’s Ama." },
+        { "start": 42, "end": 51, "text": "She can recite 100 digits of pi, designs [satellites] for a living, and bakes a perfect soufflé." },
+        { "start": 51, "end": 62, "text": "Or I could go with Mr. Taylor. He’s the best chess player in the neighborhood, not to mention he’s [competed] in over 20 Brain Clashes and is a five-time [champion]!" },
+        { "start": 105, "end": 115, "text": "Which of these teammates should Amir choose for tomorrow's contest and why? Of course, it [depends]." },
+        { "start": 111, "end": 120, "text": "While intelligence is often [associated] with things like IQ tests, these [assessments] fail to capture the scope and depth of a person’s varied [abilities]." },
+        { "start": 120, "end": 130, "text": "So instead, we’ll break down the idea of “smart” into [categories] like creativity, memory, and learning and [explore] when the brain’s best at each of them." },
+        { "start": 130, "end": 141, "text": "Let's start at the very beginning. In the first few years of life, your brain undergoes [incredible] rapid growth, called synaptogenesis." },
+        { "start": 137, "end": 145, "text": "Where more than 1 million new neural [connections] are formed every second. As the brain develops, it goes through a pruning [process]." },
+        { "start": 145, "end": 153, "text": "Based on your [experience] and environment, used connections are [strengthened] and unused connections are removed." },
+        { "start": 153, "end": 160, "text": "Frequently used neuronal pathways are myelinated, wrapped in a layer of [insulation], allowing information to travel [faster]." },
+        { "start": 161, "end": 172, "text": "This creates a more [efficient], fine-tuned brain. But this brain [remodeling] happens within and between brain regions at different times." },
+        { "start": 172, "end": 182, "text": "Allowing different skills to [flourish] at different ages. For example, in childhood, brain regions involved in language learning develop [quickly]." },
+        { "start": 182, "end": 193, "text": "Which is why many children can learn and [master] multiple languages. Yet the prefrontal cortex, a brain region [responsible] for cognitive control and inhibition, is slower to develop." },
+        { "start": 193, "end": 204, "text": "As a result, some young children may struggle with [strategic] games, such as chess or checkers, which require constant [concentration], planning, and abstract thought." },
+        { "start": 208, "end": 218, "text": "At the same time, children tend to be more [flexible], exploration-based learners. They often use more [creative] approaches when finding solutions." },
+        { "start": 218, "end": 224, "text": "And are, on average, less [afraid] to make mistakes. But adults have their own [unique] set of abilities." },
+        { "start": 224, "end": 236, "text": "Adults benefit from a well-developed prefrontal cortex, allowing them to better [execute] skills that require learning, [focus], and memory." },
+        { "start": 236, "end": 246, "text": "Making them quick and efficient puzzle solvers or crossword masters. Late in adulthood, these same skills may [decline] as the brain’s memory center, known as the hippocampus, [shrinks]." },
+        { "start": 246, "end": 258, "text": "But there’s a reason for the phrase “older and [wiser].” After a lifetime of learning, older adults have more [knowledge] to recall and utilize." },
+        { "start": 262, "end": 272, "text": "Making them [excellent] trivia partners. Other factors that Amir should [consider] are his own strengths." },
+        { "start": 268, "end": 277, "text": "As an adolescent, the prefrontal cortical regions of your brain are more [developed] than in childhood. This allows you to better [navigate] logic and math puzzles." },
+        { "start": 277, "end": 289, "text": "Simultaneously, deep inside the brain, regions that are important in [motivation] and reward are developing even faster, driving teenagers to be [curious] and adventurous learners." },
+        { "start": 289, "end": 303, "text": "In many ways, you can think of the teenager as a jack-of-all-trades, with brains [wired] to seek out new [experiences] and learn quickly." },
+        { "start": 303, "end": 316, "text": "You’re at a dynamic [stage], where the choices you make and the skills you [focus] on can actually guide the development of your brain." },
+        { "start": 316, "end": 326, "text": "So, what’s the smartest age? There’s no [single] answer. It’s 8, 16, 25, 65, and everything in [between]." },
+        { "start": 326, "end": 343, "text": "Our brains have [adapted] to [prioritize] different skills at various ages to meet that stage of life’s challenges and [demands]." },
+        { "start": 344, "end": 353, "text": "So no matter who Amir picks, having an [age-diverse] team is a good [strategy]." }
       ]
-    },
+    }
+  ]
+}
     {
       "id": 2,
       "title": "Unit 2 – TED Talk: Power of Words",
