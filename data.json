@@ -1,9 +1,10 @@
-  {
+{
   "units": [
     {
       "id": 1,
       "title": "Unit 1: What’s the smartest age? - Shannon Odell",
       "youtube_id": "sbCvQbBi2G8",
+      "bg": "https://images.unsplash.com/photo-1507413245164-6160d8298b31",
       "transcript": [
         { "text": "What is the smartest age? Perhaps a day of friendly [competition] will lead us to the answer.", "start": 7, "end": 13 },
         { "text": "Tomorrow’s the annual Brain Clash—ten teams of two competing in a decathlon of mental [challenges], trivia competitions, and puzzles.", "start": 14, "end": 24 },
@@ -36,8 +37,8 @@
         { "text": "So, what’s the smartest age? There’s no [single] answer. It’s 8, 16, 25, 65, and everything in [between].", "start": 316, "end": 326 },
         { "text": "Our brains have [adapted] to [prioritize] different skills at various ages to meet that stage of life’s challenges and [demands].", "start": 326, "end": 343 },
         { "text": "So no matter who Amir picks, having an [age-diverse] team is a good [strategy].", "start": 344, "end": 353 }
-  ]
-},
+      ]
+    },
     {
       "id": 2,
       "title": "Unit 2 – TED Talk: Power of Words",
